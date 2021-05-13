@@ -3,20 +3,12 @@
 namespace EasyAliSdk;
 
 use EasyAliSdk\Domain\Base\Base;
+use EasyAliSdk\Domain\Util\Util;
 use EasyAliSdk\Domain\Member\Member;
+use EasyAliSdk\Domain\Payment\Payment;
+use EasyAliSdk\Domain\Security\Security;
+use EasyAliSdk\Domain\Marketing\Marketing;
 use EasyAliSdk\Domain\Cert\CertEnvironment;
-use Alipay\EasySDK\Util\AES\Client as aesClient;
-use Alipay\EasySDK\Payment\App\Client as appClient;
-use Alipay\EasySDK\Payment\Wap\Client as wapClient;
-use Alipay\EasySDK\Payment\Page\Client as pageClient;
-use Alipay\EasySDK\Marketing\Pass\Client as passClient;
-use Alipay\EasySDK\Util\Generic\Client as genericClient;
-use Alipay\EasySDK\Payment\Common\Client as commonClient;
-use Alipay\EasySDK\Payment\Huabei\Client as huabeiClient;
-use Alipay\EasySDK\Security\TextRisk\Client as textRiskClient;
-use Alipay\EasySDK\Marketing\OpenLife\Client as openLifeClient;
-use Alipay\EasySDK\Payment\FaceToFace\Client as faceToFaceClient;
-use Alipay\EasySDK\Marketing\TemplateMessage\Client as templateMessageClient;
 
 class Factory
 {
@@ -93,6 +85,11 @@ class Factory
         self::$util      = new Util($kernel);
     }
 
+    /**
+     * @param $config
+     *
+     * @return Factory
+     */
     public static function setOptions($config)
     {
         if (!(self::$instance instanceof self)) {
@@ -102,45 +99,59 @@ class Factory
         return self::$instance;
     }
 
+    /**
+     * @return mixed
+     */
     private function __clone()
     {
+        return clone self::$instance;
     }
 
+    /**
+     * @return Base
+     */
     public static function base()
     {
         return self::$base;
     }
 
+    /**
+     * @return Marketing
+     */
     public static function marketing()
     {
         return self::$marketing;
     }
 
+    /**
+     * @return Member
+     */
     public static function member()
     {
         return self::$member;
     }
 
+    /**
+     * @return Payment
+     */
     public static function payment()
     {
         return self::$payment;
     }
 
+    /**
+     * @return Security
+     */
     public static function security()
     {
         return self::$security;
     }
 
+    /**
+     * @return Util
+     */
     public static function util()
     {
         return self::$util;
     }
 }
-
-
-
-
-
-
-
-

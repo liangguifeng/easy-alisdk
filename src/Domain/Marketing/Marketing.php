@@ -3,9 +3,9 @@
 namespace EasyAliSdk\Domain\Marketing;
 
 use EasyAliSdk\Domain\AliSdkOperate;
-use Alipay\EasySDK\Marketing\Pass\Client as passClient;
-use Alipay\EasySDK\Marketing\OpenLife\Client as openLifeClient;
-use Alipay\EasySDK\Marketing\TemplateMessage\Client as templateMessageClient;
+use EasyAliSdk\Domain\Marketing\Pass\Client as passClient;
+use EasyAliSdk\Domain\Marketing\OpenLife\Client as openLifeClient;
+use EasyAliSdk\Domain\Marketing\TemplateMessage\Client as templateMessageClient;
 
 class Marketing implements AliSdkOperate
 {

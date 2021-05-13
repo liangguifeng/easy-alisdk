@@ -3,10 +3,10 @@
 namespace EasyAliSdk\Domain\Base;
 
 use EasyAliSdk\Domain\AliSdkOperate;
-use Alipay\EasySDK\Base\Image\Client as imageClient;
-use Alipay\EasySDK\Base\OAuth\Client as oauthClient;
-use Alipay\EasySDK\Base\Video\Client as videoClient;
-use Alipay\EasySDK\Base\Qrcode\Client as qrcodeClient;
+use EasyAliSdk\Domain\Base\Image\Client as imageClient;
+use EasyAliSdk\Domain\Base\OAuth\Client as oauthClient;
+use EasyAliSdk\Domain\Base\Video\Client as videoClient;
+use EasyAliSdk\Domain\Base\Qrcode\Client as qrcodeClient;
 
 class Base implements AliSdkOperate
 {
