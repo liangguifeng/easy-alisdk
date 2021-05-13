@@ -1,5 +1,5 @@
 {
-    "name": "liangguifeng\/easy-alisdk",
+    "name": "liangguifeng/easy-alisdk",
     "description": "A ali sdk",
     "license": "MIT",
     "authors": [
@@ -8,10 +8,18 @@
             "email": "1476982312@qq.com"
         }
     ],
-    "require": {},
+    "require": {
+        "alibabacloud/tea": "^3.1",
+        "alibabacloud/tea-fileform": "^0.3.2",
+        "ext-http": "*",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
     "autoload": {
         "psr-4": {
-            "EasyAlisdk\\": "src"
+            "EasyAliSdk\\": "src"
         }
     }
 }
