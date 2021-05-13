@@ -6,6 +6,47 @@ use AlibabaCloud\Tea\Model;
 
 class AlipayPassInstanceUpdateResponse extends Model
 {
+
+    /**
+     * @description 响应原始字符串
+     *
+     * @var string
+     */
+    public $httpBody;
+
+    /**
+     * @var string
+     */
+    public $code;
+
+    /**
+     * @var string
+     */
+    public $msg;
+
+    /**
+     * @var string
+     */
+    public $subCode;
+
+    /**
+     * @var string
+     */
+    public $subMsg;
+
+    /**
+     * @var bool
+     */
+    public $success;
+
+    /**
+     * @var string
+     */
+    public $result;
+
+    /**
+     * @var string[]
+     */
     protected $_name = [
         'httpBody' => 'http_body',
         'code'     => 'code',
@@ -27,6 +68,9 @@ class AlipayPassInstanceUpdateResponse extends Model
         Model::validateRequired('result', $this->result, true);
     }
 
+    /**
+     * @return array
+     */
     public function toMap()
     {
         $res = [];
@@ -102,40 +146,4 @@ class AlipayPassInstanceUpdateResponse extends Model
         return $model;
     }
 
-    /**
-     * @description 响应原始字符串
-     *
-     * @var string
-     */
-    public $httpBody;
-
-    /**
-     * @var string
-     */
-    public $code;
-
-    /**
-     * @var string
-     */
-    public $msg;
-
-    /**
-     * @var string
-     */
-    public $subCode;
-
-    /**
-     * @var string
-     */
-    public $subMsg;
-
-    /**
-     * @var bool
-     */
-    public $success;
-
-    /**
-     * @var string
-     */
-    public $result;
 }
