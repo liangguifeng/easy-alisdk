@@ -3,8 +3,8 @@
 namespace EasyAliSdk\Domain\Util;
 
 use EasyAliSdk\Domain\AliSdkOperate;
-use Alipay\EasySDK\Util\AES\Client as aesClient;
-use Alipay\EasySDK\Util\Generic\Client as genericClient;
+use EasyAliSdk\Domain\Util\AES\Client as aesClient;
+use EasyAliSdk\Domain\Util\Generic\Client as genericClient;
 
 class Util implements AliSdkOperate
 {

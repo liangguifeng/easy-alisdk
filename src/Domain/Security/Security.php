@@ -3,7 +3,7 @@
 namespace EasyAliSdk\Domain\Security;
 
 use EasyAliSdk\Domain\AliSdkOperate;
-use Alipay\EasySDK\Security\TextRisk\Client as textRiskClient;
+use EasyAliSdk\Domain\Security\TextRisk\Client as textRiskClient;
 
 class Security implements AliSdkOperate
 {

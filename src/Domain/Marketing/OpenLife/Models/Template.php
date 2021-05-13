@@ -3,7 +3,6 @@
 namespace EasyAliSdk\Domain\Marketing\OpenLife\Models;
 
 use AlibabaCloud\Tea\Model;
-use Alipay\EasySDK\Marketing\OpenLife\Models\Context;
 
 class Template extends Model
 {
