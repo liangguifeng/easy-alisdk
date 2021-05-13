@@ -3,12 +3,12 @@
 namespace EasyAliSdk\Domain\Payment;
 
 use EasyAliSdk\Domain\AliSdkOperate;
-use Alipay\EasySDK\Payment\App\Client as appClient;
-use Alipay\EasySDK\Payment\Wap\Client as wapClient;
-use Alipay\EasySDK\Payment\Page\Client as pageClient;
-use Alipay\EasySDK\Payment\Common\Client as commonClient;
-use Alipay\EasySDK\Payment\Huabei\Client as huabeiClient;
-use Alipay\EasySDK\Payment\FaceToFace\Client as faceToFaceClient;
+use EasyAliSdk\Domain\Payment\App\Client as appClient;
+use EasyAliSdk\Domain\Payment\Wap\Client as wapClient;
+use EasyAliSdk\Domain\Payment\Page\Client as pageClient;
+use EasyAliSdk\Domain\Payment\Common\Client as commonClient;
+use EasyAliSdk\Domain\Payment\Huabei\Client as huabeiClient;
+use EasyAliSdk\Domain\Payment\FaceToFace\Client as faceToFaceClient;
 
 class Payment implements AliSdkOperate
 {
