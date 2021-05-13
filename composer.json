@@ -1,0 +1,17 @@
+{
+    "name": "liangguifeng\/easy-alisdk",
+    "description": "A ali sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "liangguifeng",
+            "email": "1476982312@qq.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "EasyAlisdk\\": "src"
+        }
+    }
+}
