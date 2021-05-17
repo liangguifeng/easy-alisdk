@@ -1,13 +1,13 @@
 <?php
 
-namespace EasyAliSdk\Domain\Marketing\TemplateMessage;
+namespace EasyAliSdk\Domain\Marketing\Card;
 
 use Exception;
 use AlibabaCloud\Tea\Tea;
 use AlibabaCloud\Tea\Request;
 use AlibabaCloud\Tea\Exception\TeaError;
 use AlibabaCloud\Tea\Exception\TeaUnableRetryError;
-use EasyAliSdk\Domain\Marketing\TemplateMessage\Models\AlipayOpenAppMiniTemplatemessageSendResponse;
+use EasyAliSdk\Domain\Marketing\Card\Models\AlipayMemberCardTemplateCreateSendResponse;
 
 class Client
 {
@@ -19,19 +19,25 @@ class Client
     }
 
     /**
-     * @param string $toUserId
-     * @param string $formId
-     * @param string $userTemplateId
-     * @param string $page
-     * @param string $data
+     * @param string $subject
+     * @param string $outTradeNo
+     * @param string $totalAmount
+     * @param string $authCode
+     * @param mixed  $requestId
+     * @param mixed  $cardType
+     * @param mixed  $bizNoSuffixLen
+     * @param mixed  $writeOffType
+     * @param mixed  $templateStyleInfo
+     * @param mixed  $columnInfoList
+     * @param mixed  $fieldRuleList
      *
+     * @throws TeaUnableRetryError
      * @throws TeaError
      * @throws Exception
-     * @throws TeaUnableRetryError
      *
-     * @return AlipayOpenAppMiniTemplatemessageSendResponse
+     * @return AlipayMemberCardTemplateCreateSendResponse
      */
-    public function send($toUserId, $formId, $userTemplateId, $page, $data)
+    public function create($requestId, $cardType, $bizNoSuffixLen, $writeOffType, $templateStyleInfo, $columnInfoList, $fieldRuleList)
     {
         $_runtime = [
             'ignoreSSL'      => $this->_kernel->getConfig('ignoreSSL'),
@@ -59,7 +65,7 @@ class Client
             try {
                 $_request     = new Request();
                 $systemParams = [
-                    'method'              => 'alipay.open.app.mini.templatemessage.send',
+                    'method'              => 'alipay.marketing.card.template.create',
                     'app_id'              => $this->_kernel->getConfig('appId'),
                     'timestamp'           => $this->_kernel->getTimestamp(),
                     'format'              => 'json',
@@ -71,11 +77,22 @@ class Client
                     'alipay_root_cert_sn' => $this->_kernel->getAlipayRootCertSN(),
                 ];
                 $bizParams = [
-                    'to_user_id'       => $toUserId,
-                    'form_id'          => $formId,
-                    'user_template_id' => $userTemplateId,
-                    'page'             => $page,
-                    'data'             => $data,
+                    'request_id'          => $requestId,
+                    'card_type'           => $cardType,
+                    'biz_no_suffix_len'   => $bizNoSuffixLen,
+                    'write_off_type'      => $writeOffType,
+                    'template_style_info' => $templateStyleInfo,
+//                    'column_info_list'    => $columnInfoList,
+//                    'field_rule_list'     => $fieldRuleList,
+//                    'template_benefit_info' => $templateBenefitInfo,
+//                    'biz_no_prefix'         => $bizNoPrefix,
+//                    'card_action_list'      => $cardActionList,
+//                    'open_card_conf'        => $openCardConf,
+//                    'shop_ids'              => $shopIds,
+//                    'pub_channels'          => $pubChannels,
+//                    'card_level_conf'       => $cardLevelConf,
+//                    'mdcode_notify_conf'    => $mdcodeNotifyConf,
+//                    'card_spec_tag'         => $cardSpecTag,
                 ];
                 $textParams         = [];
                 $_request->protocol = $this->_kernel->getConfig('protocol');
@@ -91,15 +108,15 @@ class Client
                 $_request->body = $this->_kernel->toUrlEncodedRequestBody($bizParams);
                 $_lastRequest   = $_request;
                 $_response      = Tea::send($_request, $_runtime);
-                $respMap        = $this->_kernel->readAsJson($_response, 'alipay.open.app.mini.templatemessage.send');
+                $respMap        = $this->_kernel->readAsJson($_response, 'alipay.marketing.card.template.create');
 
                 if ($this->_kernel->isCertMode()) {
                     if ($this->_kernel->verify($respMap, $this->_kernel->extractAlipayPublicKey($this->_kernel->getAlipayCertSN($respMap)))) {
-                        return AlipayOpenAppMiniTemplatemessageSendResponse::fromMap($this->_kernel->toRespModel($respMap));
+                        return AlipayMemberCardTemplateCreateSendResponse::fromMap($this->_kernel->toRespModel($respMap));
                     }
                 } else {
                     if ($this->_kernel->verify($respMap, $this->_kernel->getConfig('alipayPublicKey'))) {
-                        return AlipayOpenAppMiniTemplatemessageSendResponse::fromMap($this->_kernel->toRespModel($respMap));
+                        return AlipayMemberCardTemplateCreateSendResponse::fromMap($this->_kernel->toRespModel($respMap));
                     }
                 }
                 throw new TeaError([
