@@ -23,35 +23,46 @@ class Client
      * @param string $outTradeNo
      * @param string $totalAmount
      * @param string $authCode
-     * @param mixed  $requestId
-     * @param mixed  $cardType
-     * @param mixed  $bizNoSuffixLen
-     * @param mixed  $writeOffType
-     * @param mixed  $templateStyleInfo
-     * @param mixed  $columnInfoList
-     * @param mixed  $fieldRuleList
+     * @param mixed $requestId
+     * @param mixed $cardType
+     * @param mixed $bizNoSuffixLen
+     * @param mixed $writeOffType
+     * @param mixed $templateStyleInfo
+     * @param mixed $columnInfoList
+     * @param mixed $fieldRuleList
      *
+     * @return AlipayMemberCardTemplateCreateSendResponse
      * @throws TeaUnableRetryError
      * @throws TeaError
      * @throws Exception
      *
-     * @return AlipayMemberCardTemplateCreateSendResponse
      */
-    public function create($requestId, $cardType, $bizNoSuffixLen, $writeOffType, $templateStyleInfo, $columnInfoList, $fieldRuleList)
+    public function create(
+        $requestId,
+        $cardType,
+        $bizNoSuffixLen,
+        $writeOffType,
+        array $templateStyleInfo,
+        array $columnInfoList,
+        array $fieldRuleList,
+        array $templateBenefitInfo = [],
+        $bizNoPrefix = null,
+        array $cardActionList = []
+    )
     {
         $_runtime = [
-            'ignoreSSL'      => $this->_kernel->getConfig('ignoreSSL'),
-            'httpProxy'      => $this->_kernel->getConfig('httpProxy'),
+            'ignoreSSL' => $this->_kernel->getConfig('ignoreSSL'),
+            'httpProxy' => $this->_kernel->getConfig('httpProxy'),
             'connectTimeout' => 15000,
-            'readTimeout'    => 15000,
-            'retry'          => [
+            'readTimeout' => 15000,
+            'retry' => [
                 'maxAttempts' => 0,
             ],
         ];
-        $_lastRequest   = null;
+        $_lastRequest = null;
         $_lastException = null;
-        $_now           = time();
-        $_retryTimes    = 0;
+        $_now = time();
+        $_retryTimes = 0;
         while (Tea::allowRetry(@$_runtime['retry'], $_retryTimes, $_now)) {
             if ($_retryTimes > 0) {
                 $_backoffTime = Tea::getBackoffTime(@$_runtime['backoff'], $_retryTimes);
@@ -63,52 +74,71 @@ class Client
             $_retryTimes = $_retryTimes + 1;
 
             try {
-                $_request     = new Request();
+                $_request = new Request();
                 $systemParams = [
-                    'method'              => 'alipay.marketing.card.template.create',
-                    'app_id'              => $this->_kernel->getConfig('appId'),
-                    'timestamp'           => $this->_kernel->getTimestamp(),
-                    'format'              => 'json',
-                    'version'             => '1.0',
-                    'alipay_sdk'          => $this->_kernel->getSdkVersion(),
-                    'charset'             => 'UTF-8',
-                    'sign_type'           => $this->_kernel->getConfig('signType'),
-                    'app_cert_sn'         => $this->_kernel->getMerchantCertSN(),
+                    'method' => 'alipay.marketing.card.template.create',
+                    'app_id' => $this->_kernel->getConfig('appId'),
+                    'timestamp' => $this->_kernel->getTimestamp(),
+                    'format' => 'json',
+                    'version' => '1.0',
+                    'alipay_sdk' => $this->_kernel->getSdkVersion(),
+                    'charset' => 'UTF-8',
+                    'sign_type' => $this->_kernel->getConfig('signType'),
+                    'app_cert_sn' => $this->_kernel->getMerchantCertSN(),
                     'alipay_root_cert_sn' => $this->_kernel->getAlipayRootCertSN(),
                 ];
                 $bizParams = [
-                    'request_id'          => $requestId,
-                    'card_type'           => $cardType,
-                    'biz_no_suffix_len'   => $bizNoSuffixLen,
-                    'write_off_type'      => $writeOffType,
+                    'request_id' => $requestId,
+                    'card_type' => $cardType,
+                    'biz_no_suffix_len' => $bizNoSuffixLen,
+                    'write_off_type' => $writeOffType,
                     'template_style_info' => $templateStyleInfo,
-//                    'column_info_list'    => $columnInfoList,
-//                    'field_rule_list'     => $fieldRuleList,
-//                    'template_benefit_info' => $templateBenefitInfo,
-//                    'biz_no_prefix'         => $bizNoPrefix,
-//                    'card_action_list'      => $cardActionList,
-//                    'open_card_conf'        => $openCardConf,
-//                    'shop_ids'              => $shopIds,
-//                    'pub_channels'          => $pubChannels,
-//                    'card_level_conf'       => $cardLevelConf,
-//                    'mdcode_notify_conf'    => $mdcodeNotifyConf,
-//                    'card_spec_tag'         => $cardSpecTag,
+                    'column_info_list' => [
+                        $columnInfoList,
+                    ],
+                    'field_rule_list' => [
+                        $fieldRuleList,
+                    ],
+                    'biz_no_prefix' => $bizNoPrefix,
+                    'card_action_list' => $cardActionList,
+                    //                    'open_card_conf'        => $openCardConf,
+                    //                    'shop_ids'              => $shopIds,
+                    //                    'pub_channels'          => $pubChannels,
+                    //                    'card_level_conf'       => $cardLevelConf,
+                    //                    'mdcode_notify_conf'    => $mdcodeNotifyConf,
+                    //                    'card_spec_tag'         => $cardSpecTag,
                 ];
-                $textParams         = [];
+
+                if (!empty($templateBenefitInfo)) {
+                    $bizParams['template_benefit_info'] = [
+                        $templateBenefitInfo,
+                    ];
+                }
+
+                if (!empty($bizNoPrefix)) {
+                    $bizParams['biz_no_prefix'] = $bizNoPrefix;
+                }
+
+                if (!empty($cardActionList)) {
+                    $bizParams['card_action_list'] = $cardActionList;
+                }
+
+
+                $textParams = [];
                 $_request->protocol = $this->_kernel->getConfig('protocol');
-                $_request->method   = 'POST';
+                $_request->method = 'POST';
                 $_request->pathname = '/gateway.do';
-                $_request->headers  = [
-                    'host'         => $this->_kernel->getConfig('gatewayHost'),
+                $_request->headers = [
+                    'host' => $this->_kernel->getConfig('gatewayHost'),
                     'content-type' => 'application/x-www-form-urlencoded;charset=utf-8',
                 ];
                 $_request->query = $this->_kernel->sortMap(Tea::merge([
                     'sign' => $this->_kernel->sign($systemParams, $bizParams, $textParams, $this->_kernel->getConfig('merchantPrivateKey')),
                 ], $systemParams, $textParams));
                 $_request->body = $this->_kernel->toUrlEncodedRequestBody($bizParams);
-                $_lastRequest   = $_request;
-                $_response      = Tea::send($_request, $_runtime);
-                $respMap        = $this->_kernel->readAsJson($_response, 'alipay.marketing.card.template.create');
+                $_lastRequest = $_request;
+                $_response = Tea::send($_request, $_runtime);
+                $respMap = $this->_kernel->readAsJson($_response, 'alipay.marketing.card.template.create');
 
                 if ($this->_kernel->isCertMode()) {
                     if ($this->_kernel->verify($respMap, $this->_kernel->extractAlipayPublicKey($this->_kernel->getAlipayCertSN($respMap)))) {
