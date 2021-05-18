@@ -19,22 +19,16 @@ class Client
     }
 
     /**
-     * @param string     $subject
-     * @param string     $outTradeNo
-     * @param string     $totalAmount
-     * @param string     $authCode
-     * @param mixed      $requestId
-     * @param mixed      $cardType
-     * @param mixed      $bizNoSuffixLen
-     * @param mixed      $writeOffType
-     * @param mixed      $templateStyleInfo
-     * @param mixed      $columnInfoList
-     * @param mixed      $fieldRuleList
-     * @param null|mixed $bizNoPrefix
+     * 创建会员卡模板
      *
-     * @throws TeaUnableRetryError
-     * @throws TeaError
-     * @throws Exception
+     * @param $requestId
+     * @param $cardType
+     * @param $bizNoSuffixLen
+     * @param $writeOffType
+     * @param null $bizNoPrefix
+     * @param null $cardSpecTag
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
      *
      * @return AlipayMemberCardTemplateCreateSendResponse
      */
@@ -47,8 +41,14 @@ class Client
         array $columnInfoList,
         array $fieldRuleList,
         array $templateBenefitInfo = [],
+        array $cardActionList = [],
+        array $openCardConf = [],
+        array $shopIds = [],
+        array $pubChannels = [],
+        array $cardLevelConf = [],
+        array $mdcodeNotifyConf = [],
         $bizNoPrefix = null,
-        array $cardActionList = []
+        $cardSpecTag = null
     ) {
         $_runtime = [
             'ignoreSSL'      => $this->_kernel->getConfig('ignoreSSL'),
@@ -99,14 +99,8 @@ class Client
                     'field_rule_list' => [
                         $fieldRuleList,
                     ],
-                    'biz_no_prefix'    => $bizNoPrefix,
-                    'card_action_list' => $cardActionList,
-                    //                    'open_card_conf'        => $openCardConf,
-                    //                    'shop_ids'              => $shopIds,
-                    //                    'pub_channels'          => $pubChannels,
-                    //                    'card_level_conf'       => $cardLevelConf,
-                    //                    'mdcode_notify_conf'    => $mdcodeNotifyConf,
-                    //                    'card_spec_tag'         => $cardSpecTag,
+                    'biz_no_prefix'         => $bizNoPrefix,
+                    'card_action_list'      => $cardActionList,
                 ];
 
                 if (!empty($templateBenefitInfo)) {
@@ -121,6 +115,34 @@ class Client
 
                 if (!empty($cardActionList)) {
                     $bizParams['card_action_list'] = $cardActionList;
+                }
+
+                if (!empty($openCardConf)) {
+                    $bizParams['open_card_conf'] = $openCardConf;
+                }
+
+                if (!empty($shopIds)) {
+                    $bizParams['shop_ids'] = $shopIds;
+                }
+
+                if (!empty($pubChannels)) {
+                    $bizParams['pub_channels'] = [
+                        $pubChannels,
+                    ];
+                }
+
+                if (!empty($cardLevelConf)) {
+                    $bizParams['card_level_conf'] = [
+                        $cardLevelConf,
+                    ];
+                }
+
+                if (!empty($mdcodeNotifyConf)) {
+                    $bizParams['mdcode_notify_conf'] = $mdcodeNotifyConf;
+                }
+
+                if (!empty($cardSpecTag)) {
+                    $bizParams['card_spec_tag'] = $cardSpecTag;
                 }
 
                 $textParams         = [];
