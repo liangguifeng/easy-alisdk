@@ -100,17 +100,13 @@ class Client
                     'column_info_list'    => [
                         $columnInfoList,
                     ],
-                    'field_rule_list' => [
-                        $fieldRuleList,
-                    ],
+                    'field_rule_list'       => $fieldRuleList,
                     'biz_no_prefix'         => $bizNoPrefix,
                     'card_action_list'      => $cardActionList,
                 ];
 
                 if (!empty($templateBenefitInfo)) {
-                    $bizParams['template_benefit_info'] = [
-                        $templateBenefitInfo,
-                    ];
+                    $bizParams['template_benefit_info'] = $templateBenefitInfo;
                 }
 
                 if (!empty($bizNoPrefix)) {
