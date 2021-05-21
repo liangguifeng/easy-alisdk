@@ -92,14 +92,12 @@ class Client
                     'alipay_root_cert_sn' => $this->_kernel->getAlipayRootCertSN(),
                 ];
                 $bizParams = [
-                    'request_id'          => $requestId,
-                    'card_type'           => $cardType,
-                    'biz_no_suffix_len'   => $bizNoSuffixLen,
-                    'write_off_type'      => $writeOffType,
-                    'template_style_info' => $templateStyleInfo,
-                    'column_info_list'    => [
-                        $columnInfoList,
-                    ],
+                    'request_id'            => $requestId,
+                    'card_type'             => $cardType,
+                    'biz_no_suffix_len'     => $bizNoSuffixLen,
+                    'write_off_type'        => $writeOffType,
+                    'template_style_info'   => $templateStyleInfo,
+                    'column_info_list'      => $columnInfoList,
                     'field_rule_list'       => $fieldRuleList,
                     'biz_no_prefix'         => $bizNoPrefix,
                     'card_action_list'      => $cardActionList,
