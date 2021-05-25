@@ -3,6 +3,7 @@
 namespace EasyAliSdk\Domain\Base;
 
 use EasyAliSdk\Domain\AliSdkOperate;
+use EasyAliSdk\Domain\Base\User\Client as userClient;
 use EasyAliSdk\Domain\Base\Image\Client as imageClient;
 use EasyAliSdk\Domain\Base\OAuth\Client as oauthClient;
 use EasyAliSdk\Domain\Base\Video\Client as videoClient;
@@ -55,5 +56,13 @@ class Base implements AliSdkOperate
     public function video()
     {
         return new videoClient($this->kernel);
+    }
+
+    /**
+     * @return userClient
+     */
+    public function user()
+    {
+        return new userClient($this->kernel);
     }
 }
