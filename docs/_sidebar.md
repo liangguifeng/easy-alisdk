@@ -8,10 +8,10 @@
     * [开原许可](zh-cn/opensource.md)
     
 * 版本管理
-    * [版本更新记录](zh-cn/version)
+    * [版本更新记录](zh-cn/version.md)
 
 * 快速入门
-    * [安装](zh-cn/install)
+    * [安装](zh-cn/install.md)
 
 * 基础功能
     * [图片](zh-cn/base/image.md)
