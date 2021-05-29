@@ -1,22 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+    <meta charset="UTF-8">
+    <title>easy-alisdk文档</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="description" content="easy-alisdk官方文档">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="shortcut icon" href="//hyperf.wiki/2.0/favicon.ico" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
 </head>
 <body>
-  <div id="app">加载中...</div>
-  <script>
+<div id="app">加载中...</div>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github/index.js"></script>
+<script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
     window.$docsify = {
-      name: '',
-      repo: ''
+        name: 'easy-alisdk',
+        homepage: 'zh-cn/README.md',
+        // logo: '/logo.png',
+        loadSidebar: true,
+        loadNavbar: true,
+        alias: {
+            '/.*/_sidebar.md': '/_sidebar.md'
+        },
+        subMaxLevel: 2,
+        search: {
+            depth: 6,
+            noData: {
+                '/en/': 'No results!',
+                '/zh-cn/': '没有找到结果!',
+                '/zh-hk/': '沒有找到結果!',
+                '/zh-tw/': '沒有找到結果!',
+                '/': '没有找到结果!'
+            },
+            paths: 'auto',
+            placeholder: {
+                '/en/': 'Type to Search',
+                '/zh-cn/': '输入关键词搜索',
+                '/zh-hk/': '輸入關鍵詞搜索',
+                '/zh-tw/': '輸入關鍵詞搜索',
+                '/': '输入关键词搜索'
+            },
+            pathNamespaces: ['/zh-cn', '/zh-tw', '/zh-hk', '/en']
+        },
+        plantuml: {
+            skin: 'classic',
+        },
+        markdown:{
+            renderer: {
+                code: function(code, lang) {
+                    if (lang === "mermaid") {
+                        return ('<div class="mermaid">' + mermaid.render(lang, code) + '</div>');
+                    }
+                    return this.origin.code.apply(this, arguments);
+                }
+            }
+        }
     }
-  </script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+</script>
+<!-- Docsify v4 -->
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-plantuml/dist/docsify-plantuml.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 </body>
 </html>
