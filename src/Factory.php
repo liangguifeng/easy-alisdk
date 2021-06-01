@@ -3,6 +3,7 @@
 namespace EasyAliSdk;
 
 use EasyAliSdk\Domain\Base\Base;
+use EasyAliSdk\Domain\Business\Business;
 use EasyAliSdk\Domain\Util\Util;
 use EasyAliSdk\Domain\Member\Member;
 use EasyAliSdk\Domain\Payment\Payment;
@@ -58,6 +59,11 @@ class Factory
     protected static $util;
 
     /**
+     * @var Business
+     */
+    protected static $business;
+
+    /**
      * Factory constructor.
      *
      * @param $config
@@ -83,6 +89,7 @@ class Factory
         self::$payment   = new Payment($kernel);
         self::$security  = new Security($kernel);
         self::$util      = new Util($kernel);
+        self::$business  = new Business($kernel);
     }
 
     /**
@@ -153,5 +160,13 @@ class Factory
     public static function util()
     {
         return self::$util;
+    }
+
+    /**
+     * @return Business
+     */
+    public static function business()
+    {
+        return self::$business;
     }
 }
