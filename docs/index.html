@@ -18,12 +18,16 @@
 <script>
     window.$docsify = {
         name: 'easy-alisdk',
+        repo: 'liangguifeng/easy-alisdk',
         homepage: 'zh-cn/README.md',
         loadSidebar: true,
         loadNavbar: true,
         alias: {
             '/.*/_sidebar.md': '/_sidebar.md'
         },
+        plugins: [
+            EditOnGithubPlugin.create('https://github.com/liangguifeng/easy-alisdk/blob/master/docs/')
+        ],
         subMaxLevel: 2,
         search: {
             depth: 6,
